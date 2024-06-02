@@ -7,7 +7,7 @@ export default defineConfig({
   resolve: {
     alias: {
       '@': path.resolve(__dirname, 'play/src'),
-      '@packages': path.resolve(__dirname, 'packages')
+      '@components': path.resolve(__dirname, 'components'),
     },
   },
   plugins: [react()],

@@ -1,0 +1,44 @@
+@import '../../global/global.less';
+@class-prefix-button: ~'ly-button';
+
+.@{class-prefix-button} {
+  --ly-button-text-color: #fff;
+  --text-color: var(--ly-button-text-color, var(--ly-color-text));
+  border-radius: 999px;
+  &:focus {
+    outline: none;
+  }
+  &-normal {
+    background-color: rgb(69, 117, 230);
+    color: var(--text-color);
+  }
+  &-press {
+    background-color: rgb(55, 93, 184);
+    color: var(--text-color);
+  }
+  &-normal-light{
+    background-color: rgb(240, 241, 242);
+    color: rgb(28,28,28);
+  }
+  &-press-light {
+    background-color: rgb(215, 216, 217);
+    color: rgb(28,28,28);
+  }
+  &&-large {
+    width: 106px;
+    height: 40px;
+    line-height: 0;
+  }
+  &&-small {
+    width: 60px;
+    height: 26px;
+    line-height: 0;
+    font-size: 13px;
+  }
+  &&-middle {
+    width: 80px;
+    height: 34px;
+    line-height: 0;
+    font-size: 13px;
+  }
+}
