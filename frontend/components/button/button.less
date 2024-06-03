@@ -4,6 +4,7 @@
 .@{class-prefix-button} {
   --ly-button-text-color: #fff;
   --text-color: var(--ly-button-text-color, var(--ly-color-text));
+  --color: #4575E6;
   border-radius: 999px;
   &:focus {
     outline: none;
@@ -40,5 +41,13 @@
     height: 34px;
     line-height: 0;
     font-size: 13px;
+  }
+  &-text {
+    height: 20px;
+    font-size: 15px;
+    font-family: PingFangSC-Regular, PingFang SC;
+    font-weight: 400;
+    color: var(--color);
+    letter-spacing: 1px;
   }
 }

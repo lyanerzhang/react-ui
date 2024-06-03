@@ -1,7 +1,7 @@
 import React, { forwardRef, useRef, useImperativeHandle } from 'react'
 import { mergeProps } from '../../utils/with-default-props'
 import { Button as AntButton } from 'antd-mobile'
-import type { ReactNode } from 'react'
+import type { MouseEventHandler, ReactNode } from 'react'
 import classNames from 'classnames'
 
 const classPrefix = `ly-button`
@@ -28,7 +28,7 @@ const defaultProps: ButtonProps = {
   type: 'normal',
   mode: 'dark',
   size: 'middle',
-  text: false
+  text: false,
 }
 
 export const Button = forwardRef<ButtonRef, ButtonProps>((p, ref) => {
@@ -41,14 +41,25 @@ export const Button = forwardRef<ButtonRef, ButtonProps>((p, ref) => {
       return nativeButtonRef.current
     },
   }))
-  const handleClick = () => {
-    console.log(123)
+  const handleClick: MouseEventHandler<HTMLButtonElement> = (e) => {
+    if (!props.onClick) {
+      return
+    }
+    props.onClick(e)
   }
 
   return (
-    {
-      props.text ? (
-        <span ref={nativeButtonRef}>{props.children}</span>
+    <>
+      {props.text ? (
+        <span
+          ref={nativeButtonRef}
+          onClick={handleClick}
+          className={classNames(classPrefix, {
+            [`${classPrefix}-text`]: true,
+          })}
+        >
+          {props.children}
+        </span>
       ) : (
         <>
           <AntButton
@@ -56,16 +67,17 @@ export const Button = forwardRef<ButtonRef, ButtonProps>((p, ref) => {
             onClick={handleClick}
             className={classNames(classPrefix, {
               [`${classPrefix}-${props.type}`]: props.type,
-              [`${classPrefix}-${props.type}-${props.mode}`]: props.mode === 'light',
+              [`${classPrefix}-${props.type}-${props.mode}`]:
+                props.mode === 'light',
               [`${classPrefix}-${props.size}`]: props.size,
               [`${classPrefix}-block`]: props.block,
             })}
-            >
+          >
             <span>{props.children}</span>
           </AntButton>
         </>
-      )
-    }
+      )}
+    </>
   )
 })
 
