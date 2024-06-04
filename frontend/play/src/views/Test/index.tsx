@@ -8,47 +8,15 @@ import React, {
 } from 'react'
 // const PlayButton: React.FC = () => {
 export const TextInputWithFocusButton: React.FC = () => {
-  //   const inputEl = useRef(null)
-  const [value, setValue] = useState('')
-  //   useEffect(() => {
-  //     setValue(inputEl?.current.value)
-  //   }, [inputEl])
-  const inputEl = useCallback((node) => {
-    if (node !== null) {
-      console.log('TCL: TextInputWithFocusButton -> node.value', node.value)
-      setValue(node.value)
-    }
-  }, [])
-
-  const onButtonClick = () => {
-    console.log('input', inputEl.current.value)
-    setValue(inputEl?.current.value)
+  const ref = useRef(0)
+  useEffect(() => {
+    console.log('组件渲染')
+  })
+  const handleClick = () => {
+    ref.current += 1
+    console.log(ref.current)
   }
-  return (
-    <>
-      <div>
-        子组件: <TextInput ref={inputEl}></TextInput>
-      </div>
-      <div>
-        父组件: <input type="text" value={value} onChange={() => {}} />
-      </div>
-      <button onClick={onButtonClick}>获得值</button>
-    </>
-  )
+  return <button onClick={handleClick}>点击</button>
 }
-// eslint-disable-next-line react-refresh/only-export-components
-const TextInput = forwardRef((props, ref) => {
-  const [value, setValue] = useState('')
-  const inputRef = useRef()
-  useImperativeHandle(ref, () => ({
-    value: inputRef.current.value,
-  }))
-  const changeValue = (e: any) => {
-    setValue(e.target.value)
-  }
-  return <input ref={inputRef} value={value} onChange={changeValue}></input>
-})
-
-TextInput.displayName = 'TextInput'
 
 export default TextInputWithFocusButton

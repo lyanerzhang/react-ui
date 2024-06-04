@@ -23,6 +23,13 @@ function Menu() {
         </List.Item>
         <List.Item
           onClick={() => {
+            navigate('/selector')
+          }}
+        >
+          Selector
+        </List.Item>
+        <List.Item
+          onClick={() => {
             navigate('/test')
           }}
         >

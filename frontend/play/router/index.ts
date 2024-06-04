@@ -2,6 +2,7 @@ import React, { Suspense } from 'react'
 
 import Menu from '@/views/Menu/index'
 import PlayButton from '@/views/Button/index'
+import PlaySelector from '@/views/Selector/index'
 import PlayTest from '@/views/Test/index'
 
 const routes = [
@@ -12,6 +13,10 @@ const routes = [
   {
     path: '/button',
     component: PlayButton,
+  },
+  {
+    path: '/selector',
+    component: PlaySelector,
   },
   {
     path: '/test',
