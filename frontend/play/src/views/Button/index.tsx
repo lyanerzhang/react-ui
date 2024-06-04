@@ -35,6 +35,12 @@ const PlayButton: React.FC = () => {
         <Button text ref={buttonRef} onClick={handleClick}>
           文字按钮
         </Button>
+        <Button type="press" disabled>
+          disabled
+        </Button>
+        <Button type="press" loading loadingText="正在加载" size="larrge">
+          loading
+        </Button>
       </p>
     </>
   )

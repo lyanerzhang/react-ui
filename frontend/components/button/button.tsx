@@ -17,6 +17,8 @@ export type ButtonProps = {
   block?: boolean
   text?: boolean
   disabled?: boolean
+  loading?: boolean
+  loadingText?: string
   onClick?: (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
   ) => void | Promise<void>
@@ -29,6 +31,8 @@ const defaultProps: ButtonProps = {
   mode: 'dark',
   size: 'middle',
   text: false,
+  loading: false,
+  loadingText: '加载中...',
 }
 
 export const Button = forwardRef<ButtonRef, ButtonProps>((p, ref) => {
@@ -42,7 +46,7 @@ export const Button = forwardRef<ButtonRef, ButtonProps>((p, ref) => {
     },
   }))
   const handleClick: MouseEventHandler<HTMLButtonElement> = (e) => {
-    if (!props.onClick) {
+    if (!props.onClick || props.disabled) {
       return
     }
     props.onClick(e)
@@ -65,12 +69,16 @@ export const Button = forwardRef<ButtonRef, ButtonProps>((p, ref) => {
           <AntButton
             ref={nativeButtonRef}
             onClick={handleClick}
+            disabled={props.disabled}
+            loading={props.loading}
+            loadingText={props.loadingText}
             className={classNames(classPrefix, {
               [`${classPrefix}-${props.type}`]: props.type,
               [`${classPrefix}-${props.type}-${props.mode}`]:
                 props.mode === 'light',
               [`${classPrefix}-${props.size}`]: props.size,
               [`${classPrefix}-block`]: props.block,
+              [`${classPrefix}-disabled`]: props.disabled,
             })}
           >
             <span>{props.children}</span>
