@@ -21,4 +21,12 @@ module.exports = {
     ],
     'prettier/prettier': 'error',
   },
+  overrides: [
+    {
+      files: ['*.ts', '*.tsx'],
+      rules: {
+        'react/prop-types': "off",
+      },
+    },
+  ],
 }
