@@ -3,31 +3,62 @@ import Button from '@components/button/index'
 import Selector from '@components/selector/index'
 const PlaySelector: React.FC = () => {
   const [show, setShow] = useState(false)
-  const handleClick = () => {
+  const [multiple, setMultiple] = useState(true)
+  const handleClick = (type: number) => {
     setShow(!show)
   }
   const [source, setSource] = useState([
-    { label: '张三', value: '1' },
+    { label: '张三', value: '1', disabled: true },
     { label: '李四', value: '2' },
     { label: '王二麻子', value: '3' },
+    { label: '楚源', value: '4' },
   ])
-  const [value, setValue] = useState([])
+  type ValueType = string | number | Array<unknown>
+  const [value, setValue] = useState<ValueType>([])
   return (
     <div>
-      <Button type="normal" size="large" onClick={handleClick}>
-        open
+      <Button
+        type="normal"
+        size="large"
+        onClick={() => {
+          if (!(value && Array.isArray(value))) {
+            setValue([])
+          }
+          setMultiple(true)
+          setShow(true)
+        }}
+      >
+        多选
       </Button>
+      <Button
+        type="normal"
+        size="large"
+        onClick={() => {
+          if (!(value && !Array.isArray(value))) {
+            setValue('')
+          }
+          setMultiple(false)
+          setShow(true)
+        }}
+      >
+        单选
+      </Button>
+      <div>选中的值：{JSON.stringify(value)}</div>
       <Selector
         title="这里是标题——多选"
         visible={show}
         source={source}
         value={value}
-        multiple={true}
-        onConfirm={(value: unknown) => {
+        multiple={multiple}
+        onConfirm={(value: ValueType) => {
           console.log(value)
+          // handleClick()
+          setValue(value)
+          setShow(false)
         }}
         onMaskClick={() => {
-          handleClick()
+          // handleClick()
+          setShow(false)
         }}
       />
     </div>
