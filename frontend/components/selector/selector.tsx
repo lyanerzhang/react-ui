@@ -56,6 +56,7 @@ export default function Selector(p: SelectorProps) {
               onChange={(values: (string | number)[][]): void => {
                 setValue(values)
               }}
+              defaultValue={defaultValue}
             >
               <List>
                 {props.source.map((item, index) => (
@@ -94,7 +95,7 @@ export default function Selector(p: SelectorProps) {
           </>
         ) : (
           <>
-            <Radio.Group value={value}>
+            <Radio.Group value={value} defaultValue={defaultValue}>
               <List>
                 {props.source.map((item, index) => (
                   <List.Item
@@ -102,9 +103,9 @@ export default function Selector(p: SelectorProps) {
                     arrow={false}
                     onClick={() => {
                       item.checked = true
-                      console.log(item)
-                      setValue(item.value)
-                      props.onConfirm && props.onConfirm(value)
+                      const curValue = item.value
+                      setValue(curValue)
+                      props.onConfirm && props.onConfirm(curValue)
                     }}
                   >
                     <Radio value={item.value}>{item.label}</Radio>

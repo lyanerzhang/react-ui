@@ -4,9 +4,6 @@ import Selector from '@components/selector/index'
 const PlaySelector: React.FC = () => {
   const [show, setShow] = useState(false)
   const [multiple, setMultiple] = useState(true)
-  const handleClick = (type: number) => {
-    setShow(!show)
-  }
   const [source, setSource] = useState([
     { label: '张三', value: '1', disabled: true },
     { label: '李四', value: '2' },
@@ -52,12 +49,10 @@ const PlaySelector: React.FC = () => {
         multiple={multiple}
         onConfirm={(value: ValueType) => {
           console.log(value)
-          // handleClick()
           setValue(value)
           setShow(false)
         }}
         onMaskClick={() => {
-          // handleClick()
           setShow(false)
         }}
       />
