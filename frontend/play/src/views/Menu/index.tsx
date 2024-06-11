@@ -30,6 +30,13 @@ function Menu() {
         </List.Item>
         <List.Item
           onClick={() => {
+            navigate('/labelbutton')
+          }}
+        >
+          LabelButton
+        </List.Item>
+        <List.Item
+          onClick={() => {
             navigate('/test')
           }}
         >
