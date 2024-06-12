@@ -2,15 +2,26 @@
 @class-prefix-label-button: ~'ly-label-button';
 
 .@{class-prefix-label-button} {
-  &-title{
-    font-size: 14px;
-    color: #333;
-    font-weight: bold;
-    padding: 10px 30px;
+  display: inline-block;
+  margin-right: 10px;
+  &__content {
+    display: inline-block;
+    min-width: 48px;
+    font-size: 12px;
+    padding: 6px 12px;
+    border-radius: 14px;
+    text-align: center;
+    cursor: pointer;
   }
-  &-content{
-    &&-item{
-      padding: 10px 30px;
-    }
+  &__default, &__disabled {
+    font-family: PingFangSC-Regular, PingFang SC;
+    font-weight: 400;
+    background: #F0F1F2;
+  }
+  &__default {
+    color: #444444;
+  }
+  &__disabled {
+    color: #C0C2CC;
   }
 }
