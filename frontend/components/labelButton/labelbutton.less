@@ -1,6 +1,8 @@
 @import '../../global/global.less';
 @class-prefix-label-button: ~'ly-label-button';
-
+div {
+  box-sizing: border-box;
+}
 .@{class-prefix-label-button} {
   display: inline-block;
   margin-right: 10px;
@@ -17,6 +19,12 @@
     font-family: PingFangSC-Regular, PingFang SC;
     font-weight: 400;
     background: #F0F1F2;
+  }
+  &__active {
+    font-family: PingFangSC-Medium, PingFang SC;
+    color: #4575E6;
+    font-weight: 500;
+    background-color: rgba(69,117,230,0.08);
   }
   &__default {
     color: #444444;

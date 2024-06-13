@@ -1,17 +1,14 @@
 import React from 'react'
 import type { ReactNode } from 'react'
-import { LabelButtonGroupContext } from './group-context'
+import { LabelButtonGroupContext, LabelButtonGroupProps } from './group-context'
 import { mergeProps } from '../../utils/with-default-props'
 
-export type LabelButtonGroupProps = {
-  value: Array<string | number>[] | string | number | undefined
-  disabled: boolean
-  children?: ReactNode
-}
-
 const defaultProps = {
-  value: [],
+  activeValue: '',
+  defaultValue: '',
+  multiple: false,
   disabled: false,
+  children: null,
 }
 
 export default function LabelButtonGroup(p: LabelButtonGroupProps) {
@@ -19,8 +16,11 @@ export default function LabelButtonGroup(p: LabelButtonGroupProps) {
   return (
     <LabelButtonGroupContext.Provider
       value={{
-        value: props.value,
+        activeValue: props.activeValue,
+        defaultValue: props.defaultValue,
+        multiple: props.multiple,
         disabled: props.disabled,
+        children: props.children,
       }}
     >
       {props.children}
