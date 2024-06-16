@@ -6,6 +6,7 @@ import { mergeProps } from '../../utils/with-default-props'
 const defaultProps = {
   activeValue: '',
   defaultValue: '',
+  onChange: () => {},
   multiple: false,
   disabled: false,
   children: null,
@@ -18,6 +19,7 @@ export default function LabelButtonGroup(p: LabelButtonGroupProps) {
       value={{
         activeValue: props.activeValue,
         defaultValue: props.defaultValue,
+        onChange: props.onChange,
         multiple: props.multiple,
         disabled: props.disabled,
         children: props.children,

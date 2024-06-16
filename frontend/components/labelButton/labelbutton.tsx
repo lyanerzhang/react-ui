@@ -19,6 +19,7 @@ export type LabelButtonProps = {
   title: string
   key: string | number
   onClick?: (value: string) => void
+  disabled?: boolean
   children?: ReactNode
 }
 
@@ -36,64 +37,94 @@ export const LabelButton = forwardRef<LabelButtonRef, LabelButtonProps>(
     const groupContext = useContext<LabelButtonGroupProps>(
       LabelButtonGroupContext,
     )
-    const { activeValue, defaultValue, multiple, disabled, children } =
-      groupContext
+    const {
+      activeValue,
+      defaultValue,
+      onChange,
+      multiple,
+      disabled,
+      children,
+    } = groupContext
     // activeValue：设置组件激活标签，通过 state 来管理，会随着用户的交互而改变
-    // defaultValue: 设置组件挂载时的默认激活标签，不会随着用户的交互而改变，除非页面刷新
-    // console.log(groupContext, defaultValue, props.value)
-    const currentValue = useRef<Value>()
-    currentValue.flag = true
+    // defaultValue: 设置组件挂载时的默认激活标签，不会随着用户的交互而改变，除非页面刷新~~
+    const [currentValue, setCurrentValue] = useState<Value>()
+    const multipleClick = useRef(null)
     useEffect(() => {
-      if (currentValue.flag) {
-        if (multiple) {
-          console.log('multiple')
+      if (multiple) {
+        if (!Array.isArray(activeValue)) {
+          console.error('请输入正确格式的activeValue')
+          return
+        }
+        if (!Array.isArray(defaultValue)) {
+          console.error('请输入正确格式的defaultValue')
+          return
+        }
+        console.log('multipleClick.current', multipleClick.current)
+        if (multipleClick.current) {
+          setCurrentValue(activeValue)
         } else {
-          // console.log('single', currentValue, children, activeValue)
-          if (defaultValue) {
-            currentValue.current = defaultValue
+          if (activeValue.length) {
+            setCurrentValue(activeValue)
+          } else if (defaultValue.length) {
+            console.log('取1')
+            setCurrentValue(defaultValue)
           } else {
-            // 默认取第一个child的value作为默认值
+            console.log('取')
+            // 默认取第一个child的value作为默认值33
             if (children) {
-              // console.log('xxx')
-              currentValue.current = children[0].props.value
-              // console.log('xxx', currentValue.current, children[0].props.value)
+              setCurrentValue([children[0].props.value])
             }
           }
         }
-        console.log('只在页面挂载时执行', currentValue.current)
-        currentValue.flag = false
       } else {
-        console.log('只在 activeValue 变化时执行')
-        currentValue.current = activeValue
+        if (activeValue) {
+          setCurrentValue(activeValue)
+        } else if (defaultValue) {
+          setCurrentValue(defaultValue)
+        } else {
+          // 默认取第一个child的value作为默认值33
+          if (children) {
+            setCurrentValue(children[0].props.value)
+          }
+        }
       }
-      // renderSelectedClass()
-    }, [activeValue])
-    // useEffect(() => {
-    //   currentValue.current = activeValue
-    //   console.log('只在 activeValue  变化时执行')
-    // }, [activeValue])
+      console.log('只在页面挂载时执行', activeValue)
+      // console.log('activeValue', activeValue)
+    }, [activeValue, defaultValue, children, multiple])
     const handleClick = () => {
+      if (disabled || props.disabled) {
+        return
+      }
       if (props.onClick) {
-        props.onClick(props.value)
+        if (multiple) {
+          console.log(currentValue, children)
+          // 当点击某一个时，触发父组件的onChange事件
+          props.onClick(props.value)
+          onChange(currentValue)
+          multipleClick.current = true
+        } else {
+          props.onClick(props.value)
+          onChange(props.value)
+        }
       }
     }
-    const renderSelectedClass = () => {
-      console.log('render--', currentValue.current, props.value)
-      if (currentValue.current === props.value) {
-        return `${classPrefix}__active`
-      } else {
-        return `${classPrefix}__default`
-      }
-    }
+
     return (
       <>
         <div className={classNames(classPrefix)} onClick={handleClick}>
-          {currentValue.current}
-          {props.value}
           <div
             className={classNames(`${classPrefix}__content`, {
-              [`${classPrefix}__active`]: currentValue.current === props.value,
-              [`${classPrefix}__default`]: currentValue.current !== props.value,
+              [`${classPrefix}__active`]:
+                !disabled &&
+                !props.disabled &&
+                (currentValue === props.value ||
+                  currentValue?.includes(props.value)),
+              [`${classPrefix}__default`]:
+                !disabled &&
+                !props.disabled &&
+                currentValue !== props.value &&
+                !currentValue?.includes(props.value),
+              [`${classPrefix}__disabled`]: !!disabled || props.disabled,
             })}
           >
             {props.children}

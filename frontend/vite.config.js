@@ -9,6 +9,9 @@ export default defineConfig({
       '@': path.resolve(__dirname, 'play/src'),
       '@components': path.resolve(__dirname, 'components'),
     },
+    server: {
+      port: 3000,
+    },
   },
   plugins: [react()],
 })
