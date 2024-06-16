@@ -4,7 +4,6 @@ import { LabelButtonGroupContext, LabelButtonGroupProps } from './group-context'
 import { mergeProps } from '../../utils/with-default-props'
 
 const defaultProps = {
-  activeValue: '',
   defaultValue: '',
   onChange: () => {},
   multiple: false,
@@ -14,6 +13,7 @@ const defaultProps = {
 
 export default function LabelButtonGroup(p: LabelButtonGroupProps) {
   const props = mergeProps(defaultProps, p)
+  // 如何判断是否有activeValue,activeValue = useState() 相当于没有定义，
   return (
     <LabelButtonGroupContext.Provider
       value={{

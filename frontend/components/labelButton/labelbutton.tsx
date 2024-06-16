@@ -48,36 +48,19 @@ export const LabelButton = forwardRef<LabelButtonRef, LabelButtonProps>(
     // activeValue：设置组件激活标签，通过 state 来管理，会随着用户的交互而改变
     // defaultValue: 设置组件挂载时的默认激活标签，不会随着用户的交互而改变，除非页面刷新~~
     const [currentValue, setCurrentValue] = useState<Value>()
-    const multipleClick = useRef(null)
+    const effectDefaultValue = useRef(null)
     useEffect(() => {
       if (multiple) {
-        if (!Array.isArray(activeValue)) {
-          console.error('请输入正确格式的activeValue')
-          return
-        }
-        if (!Array.isArray(defaultValue)) {
-          console.error('请输入正确格式的defaultValue')
-          return
-        }
-        console.log('multipleClick.current', multipleClick.current)
-        if (multipleClick.current) {
+        if (activeValue !== undefined) {
           setCurrentValue(activeValue)
-        } else {
-          if (activeValue.length) {
-            setCurrentValue(activeValue)
-          } else if (defaultValue.length) {
-            console.log('取1')
-            setCurrentValue(defaultValue)
-          } else {
-            console.log('取')
-            // 默认取第一个child的value作为默认值33
-            if (children) {
-              setCurrentValue([children[0].props.value])
-            }
-          }
+          effectDefaultValue.current = activeValue
+        } else if (defaultValue.length) {
+          effectDefaultValue.current = defaultValue
+          console.log('effect defaultValue', defaultValue)
+          setCurrentValue(defaultValue)
         }
       } else {
-        if (activeValue) {
+        if (activeValue !== undefined) {
           setCurrentValue(activeValue)
         } else if (defaultValue) {
           setCurrentValue(defaultValue)
@@ -88,24 +71,35 @@ export const LabelButton = forwardRef<LabelButtonRef, LabelButtonProps>(
           }
         }
       }
-      console.log('只在页面挂载时执行', activeValue)
-      // console.log('activeValue', activeValue)
     }, [activeValue, defaultValue, children, multiple])
     const handleClick = () => {
       if (disabled || props.disabled) {
         return
       }
-      if (props.onClick) {
-        if (multiple) {
-          console.log(currentValue, children)
-          // 当点击某一个时，触发父组件的onChange事件
-          props.onClick(props.value)
-          onChange(currentValue)
-          multipleClick.current = true
+      if (multiple) {
+        console.log(currentValue, children)
+        // 当点击某一个时，触发父组件的onChange事件
+        // 如果activeValue 为undefined，以defaultValue为准
+        // 已存在，则删除
+        if (effectDefaultValue.current.includes(props.value)) {
+          effectDefaultValue.current = effectDefaultValue.current.filter(
+            (item) => item !== props.value,
+          )
+          console.log('已存在，则删除', effectDefaultValue.current)
+          setCurrentValue(effectDefaultValue.current)
         } else {
-          props.onClick(props.value)
-          onChange(props.value)
+          // 不存在，则添加
+          effectDefaultValue.current = [
+            ...effectDefaultValue.current,
+            props.value,
+          ]
+          console.log('不存在，则添加', effectDefaultValue.current)
+          setCurrentValue(effectDefaultValue.current)
         }
+        onChange(effectDefaultValue.current)
+      } else {
+        setCurrentValue(props.value)
+        onChange(props.value)
       }
     }
 
