@@ -1,7 +1,6 @@
 {
   "compilerOptions": {
-    "target": "ESNext",
-    "module": "ESNext",
+    "target": "ES6",
     "moduleResolution": "Node",
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
@@ -10,19 +9,34 @@
     "skipLibCheck": true,
     "isolatedModules": true,
     "allowJs": true,
+    "declaration": false,
     "lib": [
-      "ESNext",
+      "ES2016",
       "DOM"
     ],
-    "baseUrl": ".",
+    "baseUrl": "./",
+    "typeRoots": ["./src/typings", "./node_modules/@types"],
     "jsx": "react",
-    "outDir": ".",
+    "outDir": ".lib",
     "paths": {
-      "@src/*": [
-        "./src/*"
-      ],
+      "ly-mobile": ["src/index.ts"],
+      "ly-mobile/src/*": ["src/*"],
+      "ly-mobile/es/*": ["src/*"],
+      "demos": ["src/demos/index.ts"],
+      "testing": ["src/tests/testing"]
     },
+    "allowSyntheticDefaultImports": true,
+    "noImplicitAny": true,
+    "resolveJsonModule": true
   },
-  "exclude": ["*.js", "build", "env", "static"]
+  "include": ["src"],
+  "exclude": ["node_modules", "lib", "es", "dist", ".dumi"],
+  "ts-node": {
+    "compilerOptions": {
+      "module": "CommonJS",
+      "resolveJsonModule": true,
+      "noImplicitAny": false
+    }
+  }
 }
   
