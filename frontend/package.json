@@ -19,6 +19,7 @@
     "./lib"
   ],
   "dependencies": {
+    "ahooks": "^3.8.0",
     "antd-mobile": "^5.36.1",
     "autoprefixer": "9.8.8",
     "classnames": "^2.5.1",
@@ -32,11 +33,13 @@
     "react-router-dom": "^6.23.1"
   },
   "devDependencies": {
+    "@ant-design/icons": "^5.3.7",
     "@types/react": "^18.2.66",
     "@types/react-dom": "^18.2.22",
     "@typescript-eslint/eslint-plugin": "^7.11.0",
     "@typescript-eslint/parser": "^7.11.0",
     "@vitejs/plugin-react": "^4.2.1",
+    "antd": "4.24.9",
     "dumi": "1.1.48",
     "eslint": "^8.57.0",
     "eslint-config-prettier": "^9.1.0",
@@ -48,7 +51,9 @@
     "gulp-babel": "8.0.0",
     "gulp-typescript": "6.0.0-alpha.1",
     "postcss": "8.0.9",
+    "postcss-pxtorem": "6.0.0",
     "prettier": "^3.2.5",
+    "react-lottie": "1.2.3",
     "through2": "4.0.2",
     "typescript": "^5.4.5",
     "vite": "^5.2.0"
