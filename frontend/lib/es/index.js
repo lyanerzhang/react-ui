@@ -1,2 +1,2 @@
-import './global'
-export { default as Button } from './components/button'
+import './global';
+export { default as Button } from './components/button';
