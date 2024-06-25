@@ -3,18 +3,6 @@ import { Button, Card } from 'antd'
 import Lottie from 'react-lottie'
 import { useSize } from 'ahooks'
 import { RightOutlined } from '@ant-design/icons'
-import MainSection from './MainSection'
-import {
-  productIntroduce,
-  productIntroduceEn,
-  getProductResource,
-  productDesignValues,
-  productDesignValuesEn,
-  getProductDesignValuesBackgroundImage,
-  getGuides,
-  getRecommends,
-  users,
-} from './config'
 import styles from './index.local.less'
 import { useTrans } from '../../../hooks/useTrans'
 
@@ -56,8 +44,8 @@ export default () => {
   }, [containerSize?.width])
 
   return (
-    <div className={styles.mainContainer} ref={containerRef} id='mainContainer'>
-      <div className={styles.mainSection}>
+    <div>
+      <div>
         Home Page
         {/* <MainSection isWidthScreen={isWidthScreen} /> */}
       </div>

@@ -1,5 +1,5 @@
 export const navs = {
-  'en': [
+  'en-US': [
     {
       title: 'Guide',
       path: '/guide',
@@ -34,14 +34,14 @@ export const navs = {
       path: 'https://github.com/ant-design/ant-design-mobile',
     },
   ],
-  'zh': [
+  'zh-CN': [
     {
       title: '指南',
       path: '/zh/guide',
     },
     {
       title: '组件',
-      path: '/zh/components',
+      path: '/zh-CN/components',
     },
     {
       title: '资源',
