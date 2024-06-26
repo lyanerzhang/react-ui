@@ -18,5 +18,16 @@ const config: IConfig = {
     ['zh-CN', '中文'],
     ['en-US', 'English'],
   ],
+  alias: {
+    'ly-mobile/es': process.cwd() + '/src',
+    'demos': process.cwd() + '/src/demos/index.ts',
+  },
+  themeConfig: {
+    hd: {
+      rules: [
+        // {mode: 'vw', options: [100, 750]}
+      ],
+    },
+  },
 }
 export default config

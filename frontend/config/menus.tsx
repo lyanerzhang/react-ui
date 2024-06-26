@@ -22,7 +22,7 @@ export const menus = {
   '/zh-CN/components': [
     {
       title: '通用',
-      children: ["/components/button/index.zh-CN.md"],
+      children: ["/components/button"],
     },
   ]
 }
