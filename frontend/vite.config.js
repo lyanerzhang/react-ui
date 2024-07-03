@@ -7,7 +7,7 @@ export default defineConfig({
   resolve: {
     alias: {
       '@': path.resolve(__dirname, 'play/src'),
-      '@components': path.resolve(__dirname, 'components'),
+      '@components': path.resolve(__dirname, 'src/components'),
     },
     server: {
       port: 3000,
