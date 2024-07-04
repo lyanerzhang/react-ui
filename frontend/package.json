@@ -41,6 +41,7 @@
     "@vitejs/plugin-react": "^4.2.1",
     "antd": "4.24.9",
     "dumi": "1.1.48",
+    "dumi-theme-mobile": "1.1.27",
     "eslint": "^8.57.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-prettier": "^5.1.3",
